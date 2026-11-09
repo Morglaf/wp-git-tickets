@@ -1,0 +1,262 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Git Tickets 2.5.0\n"
+"Report-Msgid-Bugs-To: https://github.com/Morglaf/wp-git-tickets\n"
+"POT-Creation-Date: 2026-11-09 16:24+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Domain: wp-git-tickets\n"
+
+msgid "Access denied."
+msgstr ""
+
+msgid "WP Git Tickets"
+msgstr ""
+
+msgid "GitHub configuration"
+msgstr ""
+
+msgid "Personal Access Token"
+msgstr ""
+
+msgid "Organization / username"
+msgstr ""
+
+msgid "Debug mode"
+msgstr ""
+
+msgid "Leave blank to keep the current token"
+msgstr ""
+
+msgid "GitHub personal access token"
+msgstr ""
+
+msgid "A token is already saved. Leave the field empty to keep it."
+msgstr ""
+
+msgid "e.g. MyOrganization"
+msgstr ""
+
+msgid "Enable debug logging (PHP error_log)"
+msgstr ""
+
+msgid "WP Git Tickets settings"
+msgstr ""
+
+msgid "GitHub cache cleared."
+msgstr ""
+
+msgid "Clear GitHub cache (README / feeds)"
+msgstr ""
+
+msgid "Repository visibility"
+msgstr ""
+
+msgid "Uncheck repositories you do not want in the contact form (e.g. .github, website)."
+msgstr ""
+
+msgid "Unable to list repositories:"
+msgstr ""
+
+msgid "Repository name"
+msgstr ""
+
+msgid "Note: unchecked repositories are ignored by the contact form."
+msgstr ""
+
+msgid "Technical error."
+msgstr ""
+
+msgid "--- Choose a software ---"
+msgstr ""
+
+msgid "Unknown website visitor"
+msgstr ""
+
+msgid "Submitted by: %s"
+msgstr ""
+
+msgid "Repository URL is missing."
+msgstr ""
+
+msgid "Invalid GitHub URL."
+msgstr ""
+
+msgid "Invalid GitHub URL (owner/repo expected)."
+msgstr ""
+
+msgid "ACF/SCF field name is missing."
+msgstr ""
+
+msgid "The ACF/SCF field is empty."
+msgstr ""
+
+msgid "GitHub rate limit reached. Please try again later."
+msgstr ""
+
+msgid "GitHub resource not found."
+msgstr ""
+
+msgid "GitHub error (%d)"
+msgstr ""
+
+msgid "Incomplete configuration."
+msgstr ""
+
+msgid "No README.md found at the repository root."
+msgstr ""
+
+msgid "Unable to read README file(s)."
+msgstr ""
+
+msgid "Push of %1$d commit(s) to %2$s%3$s"
+msgstr ""
+
+msgid "Release %1$s on %2$s"
+msgstr ""
+
+msgid "Created %1$s %2$s"
+msgstr ""
+
+msgid "Starred %s"
+msgstr ""
+
+msgid "Forked %s"
+msgstr ""
+
+msgid "— Select a field —"
+msgstr ""
+
+msgid "No activity."
+msgstr ""
+
+msgid "Error while rendering the feed."
+msgstr ""
+
+msgid "Organization is not configured."
+msgstr ""
+
+msgid "Error while rendering the organization feed."
+msgstr ""
+
+msgid "Error while rendering the README."
+msgstr ""
+
+msgid "Markdown rendering error."
+msgstr ""
+
+msgid "Default (100%)"
+msgstr ""
+
+msgid "Custom…"
+msgstr ""
+
+msgid "Width"
+msgstr ""
+
+msgid "Custom width"
+msgstr ""
+
+msgid "e.g. 640px, 80%, 40rem"
+msgstr ""
+
+msgid "Repository source"
+msgstr ""
+
+msgid "Manual URL"
+msgstr ""
+
+msgid "ACF / SCF field"
+msgstr ""
+
+msgid "Repository URL"
+msgstr ""
+
+msgid "Value read from the current post."
+msgstr ""
+
+msgid "No ACF/SCF field detected. Enter the field name manually."
+msgstr ""
+
+msgid "ACF / SCF field name"
+msgstr ""
+
+msgid "Feed type"
+msgstr ""
+
+msgid "Commits"
+msgstr ""
+
+msgid "Activity (events)"
+msgstr ""
+
+msgid "Configure the block in the sidebar."
+msgstr ""
+
+msgid "Preview for ACF/SCF field \""
+msgstr ""
+
+msgid "\" — real content appears in preview / front-end."
+msgstr ""
+
+msgid "ServerSideRender is unavailable."
+msgstr ""
+
+msgid "Block render error."
+msgstr ""
+
+msgid "Feed settings"
+msgstr ""
+
+msgid "Number of items"
+msgstr ""
+
+msgid "GitHub repository feed"
+msgstr ""
+
+msgid "Organization"
+msgstr ""
+
+msgid "Leave empty to use the organization from plugin settings."
+msgstr ""
+
+msgid "README settings"
+msgstr ""
+
+msgid "Branch"
+msgstr ""
+
+msgid "Default: main (falls back to master)."
+msgstr ""
+
+msgid "Default language"
+msgstr ""
+
+msgid "e.g. en for README.en.md. Empty = README.md."
+msgstr ""
+
+msgid "Show tabs when multiple READMEs exist"
+msgstr ""
+
+msgid "First tab label"
+msgstr ""
+
+msgid "Label for README.md (no language suffix). e.g. French, FR…"
+msgstr ""
+
+msgid "Hide header (div align=\"center\")"
+msgstr ""
+
+msgid "Removes the top logos / badges / language links banner from the README."
+msgstr ""
+
+msgid "Also hide (CSS selectors)"
+msgstr ""
+
+msgid "One selector per line. e.g. div[align=\"center\"]  ·  .header  ·  #badges"
+msgstr ""
+
+msgid "GitHub repository README"
+msgstr ""
+

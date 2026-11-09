@@ -1,11 +1,11 @@
 {
   "apiVersion": 2,
   "name": "wpgit/repo-feed",
-  "title": "Flux dépôt GitHub",
+  "title": "GitHub repository feed",
   "category": "widgets",
   "icon": "update",
-  "description": "Affiche le flux de commits ou d'activité d'un dépôt GitHub.",
-  "keywords": ["github", "commits", "feed", "depot"],
+  "description": "Display commits or activity from a GitHub repository.",
+  "keywords": ["github", "commits", "feed", "repository"],
   "supports": {
     "html": false,
     "align": ["wide", "full"],

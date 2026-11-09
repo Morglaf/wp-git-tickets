@@ -1,0 +1,264 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Git Tickets 2.5.0\n"
+"Report-Msgid-Bugs-To: https://github.com/Morglaf/wp-git-tickets\n"
+"POT-Creation-Date: 2026-11-09 16:24+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Domain: wp-git-tickets\n"
+"Language: es_ES\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Access denied."
+msgstr "Acceso denegado."
+
+msgid "WP Git Tickets"
+msgstr "WP Git Tickets"
+
+msgid "GitHub configuration"
+msgstr "Configuración de GitHub"
+
+msgid "Personal Access Token"
+msgstr "Token de acceso personal"
+
+msgid "Organization / username"
+msgstr "Organización / usuario"
+
+msgid "Debug mode"
+msgstr "Modo de depuración"
+
+msgid "Leave blank to keep the current token"
+msgstr "Dejar en blanco para mantener el token actual"
+
+msgid "GitHub personal access token"
+msgstr "Token de acceso personal de GitHub"
+
+msgid "A token is already saved. Leave the field empty to keep it."
+msgstr "Ya hay un token guardado. Deje el campo vacío para conservarlo."
+
+msgid "e.g. MyOrganization"
+msgstr "p. ej. MiOrganizacion"
+
+msgid "Enable debug logging (PHP error_log)"
+msgstr "Activar registros de depuración (PHP error_log)"
+
+msgid "WP Git Tickets settings"
+msgstr "Ajustes de WP Git Tickets"
+
+msgid "GitHub cache cleared."
+msgstr "Caché de GitHub vaciada."
+
+msgid "Clear GitHub cache (README / feeds)"
+msgstr "Vaciar la caché de GitHub (README / feeds)"
+
+msgid "Repository visibility"
+msgstr "Visibilidad de los repositorios"
+
+msgid "Uncheck repositories you do not want in the contact form (e.g. .github, website)."
+msgstr "Desmarque los repositorios que no quiera en el formulario (p. ej. .github, sitio web)."
+
+msgid "Unable to list repositories:"
+msgstr "No se pueden listar los repositorios:"
+
+msgid "Repository name"
+msgstr "Nombre del repositorio"
+
+msgid "Note: unchecked repositories are ignored by the contact form."
+msgstr "Nota: los repositorios desmarcados se ignoran en el formulario de contacto."
+
+msgid "Technical error."
+msgstr "Error técnico."
+
+msgid "--- Choose a software ---"
+msgstr "--- Elegir un software ---"
+
+msgid "Unknown website visitor"
+msgstr "Visitante desconocido del sitio web"
+
+msgid "Submitted by: %s"
+msgstr "Enviado por: %s"
+
+msgid "Repository URL is missing."
+msgstr "Falta la URL del repositorio."
+
+msgid "Invalid GitHub URL."
+msgstr "URL de GitHub no válida."
+
+msgid "Invalid GitHub URL (owner/repo expected)."
+msgstr "URL de GitHub no válida (se espera owner/repo)."
+
+msgid "ACF/SCF field name is missing."
+msgstr "Falta el nombre del campo ACF/SCF."
+
+msgid "The ACF/SCF field is empty."
+msgstr "El campo ACF/SCF está vacío."
+
+msgid "GitHub rate limit reached. Please try again later."
+msgstr "Se alcanzó el límite de velocidad de GitHub. Inténtelo más tarde."
+
+msgid "GitHub resource not found."
+msgstr "Recurso de GitHub no encontrado."
+
+msgid "GitHub error (%d)"
+msgstr "Error de GitHub (%d)"
+
+msgid "Incomplete configuration."
+msgstr "Configuración incompleta."
+
+msgid "No README.md found at the repository root."
+msgstr "No se encontró README.md en la raíz del repositorio."
+
+msgid "Unable to read README file(s)."
+msgstr "No se puede(n) leer el/los README."
+
+msgid "Push of %1$d commit(s) to %2$s%3$s"
+msgstr "Push de %1$d commit(s) a %2$s%3$s"
+
+msgid "Release %1$s on %2$s"
+msgstr "Release %1$s en %2$s"
+
+msgid "Created %1$s %2$s"
+msgstr "Creación %1$s %2$s"
+
+msgid "Starred %s"
+msgstr "Star en %s"
+
+msgid "Forked %s"
+msgstr "Fork de %s"
+
+msgid "— Select a field —"
+msgstr "— Seleccionar un campo —"
+
+msgid "No activity."
+msgstr "Sin actividad."
+
+msgid "Error while rendering the feed."
+msgstr "Error al representar el feed."
+
+msgid "Organization is not configured."
+msgstr "La organización no está configurada."
+
+msgid "Error while rendering the organization feed."
+msgstr "Error al representar el feed de la organización."
+
+msgid "Error while rendering the README."
+msgstr "Error al representar el README."
+
+msgid "Markdown rendering error."
+msgstr "Error de renderizado Markdown."
+
+msgid "Default (100%)"
+msgstr "Predeterminado (100%)"
+
+msgid "Custom…"
+msgstr "Personalizado…"
+
+msgid "Width"
+msgstr "Ancho"
+
+msgid "Custom width"
+msgstr "Ancho personalizado"
+
+msgid "e.g. 640px, 80%, 40rem"
+msgstr "p. ej. 640px, 80%, 40rem"
+
+msgid "Repository source"
+msgstr "Fuente del repositorio"
+
+msgid "Manual URL"
+msgstr "URL manual"
+
+msgid "ACF / SCF field"
+msgstr "Campo ACF / SCF"
+
+msgid "Repository URL"
+msgstr "URL del repositorio"
+
+msgid "Value read from the current post."
+msgstr "Valor leído de la entrada actual."
+
+msgid "No ACF/SCF field detected. Enter the field name manually."
+msgstr "No se detectó ningún campo ACF/SCF. Introduzca el nombre manualmente."
+
+msgid "ACF / SCF field name"
+msgstr "Nombre del campo ACF / SCF"
+
+msgid "Feed type"
+msgstr "Tipo de feed"
+
+msgid "Commits"
+msgstr "Commits"
+
+msgid "Activity (events)"
+msgstr "Actividad (events)"
+
+msgid "Configure the block in the sidebar."
+msgstr "Configure el bloque en la barra lateral."
+
+msgid "Preview for ACF/SCF field \""
+msgstr "Vista previa del campo ACF/SCF « "
+
+msgid "\" — real content appears in preview / front-end."
+msgstr " » — el contenido real aparece en la vista previa / portada."
+
+msgid "ServerSideRender is unavailable."
+msgstr "ServerSideRender no disponible."
+
+msgid "Block render error."
+msgstr "Error de renderizado del bloque."
+
+msgid "Feed settings"
+msgstr "Ajustes del feed"
+
+msgid "Number of items"
+msgstr "Número de elementos"
+
+msgid "GitHub repository feed"
+msgstr "Feed del repositorio GitHub"
+
+msgid "Organization"
+msgstr "Organización"
+
+msgid "Leave empty to use the organization from plugin settings."
+msgstr "Dejar vacío para usar la organización de los ajustes del plugin."
+
+msgid "README settings"
+msgstr "Ajustes del README"
+
+msgid "Branch"
+msgstr "Rama"
+
+msgid "Default: main (falls back to master)."
+msgstr "Predeterminado: main (alternativa master)."
+
+msgid "Default language"
+msgstr "Idioma predeterminado"
+
+msgid "e.g. en for README.en.md. Empty = README.md."
+msgstr "p. ej. en para README.en.md. Vacío = README.md."
+
+msgid "Show tabs when multiple READMEs exist"
+msgstr "Mostrar pestañas si hay varios README"
+
+msgid "First tab label"
+msgstr "Etiqueta de la primera pestaña"
+
+msgid "Label for README.md (no language suffix). e.g. French, FR…"
+msgstr "Etiqueta de README.md (sin sufijo de idioma). p. ej. Español, ES…"
+
+msgid "Hide header (div align=\"center\")"
+msgstr "Ocultar encabezado (div align=\"center\")"
+
+msgid "Removes the top logos / badges / language links banner from the README."
+msgstr "Quita el banner de logos / insignias / enlaces de idioma del README."
+
+msgid "Also hide (CSS selectors)"
+msgstr "Ocultar también (selectores CSS)"
+
+msgid "One selector per line. e.g. div[align=\"center\"]  ·  .header  ·  #badges"
+msgstr "Un selector por línea. p. ej. div[align=\"center\"]  ·  .header  ·  #badges"
+
+msgid "GitHub repository README"
+msgstr "README del repositorio GitHub"
+

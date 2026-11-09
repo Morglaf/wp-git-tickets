@@ -1,10 +1,10 @@
 {
   "apiVersion": 2,
   "name": "wpgit/repo-readme",
-  "title": "README dépôt GitHub",
+  "title": "GitHub repository README",
   "category": "widgets",
   "icon": "media-text",
-  "description": "Affiche le(s) README Markdown d'un dépôt GitHub, avec onglets multilingues.",
+  "description": "Display a GitHub repository README in Markdown/HTML, with multilingual tabs.",
   "keywords": ["github", "readme", "markdown"],
   "supports": {
     "html": false,

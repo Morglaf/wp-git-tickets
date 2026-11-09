@@ -1,11 +1,11 @@
 {
   "apiVersion": 2,
   "name": "wpgit/org-feed",
-  "title": "Flux organisation GitHub",
+  "title": "GitHub organization feed",
   "category": "widgets",
   "icon": "groups",
-  "description": "Affiche le flux de commits ou d'activité de toute une organisation GitHub.",
-  "keywords": ["github", "organisation", "commits", "feed"],
+  "description": "Display commits or activity across a GitHub organization.",
+  "keywords": ["github", "organization", "commits", "feed"],
   "supports": {
     "html": false,
     "align": ["wide", "full"],

@@ -1,91 +1,73 @@
-# WP Git Tickets Advanced
+# WP Git Tickets
 
-Plugin WordPress pour relier un site à GitHub : création de tickets via Contact Form 7, et blocs Gutenberg pour afficher le flux d’activité et les README des dépôts.
+WordPress plugin to connect a site to GitHub: create issues from Contact Form 7, and display repository activity feeds and READMEs with Gutenberg blocks.
 
-**Auteur :** Morglaf  
-**Version :** 2.4
+**Author:** Morglaf  
+**Version:** 2.5.0  
+**License:** [GPLv2 or later](https://www.gnu.org/licenses/gpl-2.0.html)  
+**Languages:** English (source), French, Spanish, German
 
-## Fonctionnalités
+## Features
 
 ### Contact Form 7
-- Shortcode `[github_repo_list]` : liste déroulante des dépôts (filtrable dans les réglages)
-- À l’envoi du formulaire, création d’une issue GitHub (bug / enhancement) selon le type de demande
+- Shortcode `[wpgit_repo_list]` (legacy alias `[github_repo_list]`)
+- Creates a GitHub issue (bug / enhancement) on form submit
 
-### Blocs Gutenberg
-| Bloc | Description |
-|------|-------------|
-| **Flux dépôt GitHub** | Commits ou activité d’un dépôt (URL manuelle ou champ ACF/SCF) |
-| **Flux organisation GitHub** | Commits fusionnés ou events de toute l’organisation |
-| **README dépôt GitHub** | Affiche le(s) README en Markdown/HTML, onglets multilingues |
+### Gutenberg blocks
+| Block | Description |
+|-------|-------------|
+| **GitHub repository feed** | Commits or activity for one repo (manual URL or ACF/SCF field) |
+| **GitHub organization feed** | Merged commits or org events |
+| **GitHub repository README** | Markdown/HTML README with multilingual tabs |
 
-## Prérequis
+## Requirements
 
 - WordPress 5.8+
-- Un [Personal Access Token](https://github.com/settings/tokens) GitHub
-- Contact Form 7 (pour les tickets)
-- ACF ou SCF (optionnel, pour lier l’URL d’un dépôt à un champ)
+- PHP 7.4+
+- GitHub [Personal Access Token](https://github.com/settings/tokens)
+- Contact Form 7 (optional, for tickets)
+- ACF or SCF (optional, for dynamic repo URLs)
 
 ## Installation
 
-1. Téléverser le dossier `wp-git-tickets` dans `wp-content/plugins/`
-2. Activer le plugin
-3. Aller dans **Réglages → WP Git Tickets**
+1. Upload `wp-git-tickets` to `wp-content/plugins/`
+2. Activate the plugin
+3. Open **Settings → WP Git Tickets**
 
-Ou utiliser le zip généré localement :
+Local zip build:
 
 ```powershell
 .\build-zip.ps1
 ```
 
-Puis importer `dist/wp-git-tickets-x.x.zip` via **Extensions → Ajouter**.
-
 ## Configuration
 
-Dans **Réglages → WP Git Tickets** :
+1. Personal Access Token
+2. Organization / username
+3. Repository visibility (checked repos appear in the CF7 select)
+4. Clear GitHub cache when needed
 
-1. **Personal Access Token** — token GitHub avec accès aux dépôts / issues
-2. **Organisation / Pseudo** — ex. `MYorganisation`
-3. **Visibilité des dépôts** — cocher ceux visibles dans le formulaire CF7
-4. Bouton **Vider le cache GitHub** si besoin (README / flux)
+### External services
 
-## Usage Contact Form 7
+The plugin calls GitHub (`api.github.com`, `raw.githubusercontent.com`). CF7 issue creation sends the visitor name, title and description to GitHub. See `readme.txt` for details.
 
-Dans le formulaire, utiliser notamment :
+## WordPress.org assets
 
-- `[github_repo_list]` → champ `nom-logiciel`
-- Un champ type de demande (`type-demande`) avec les valeurs :
-  - `Un bug`
-  - `Une fonction souhaitée`
-- `ticket-title`, `ticket-desc`, `your-name`
+PNG icons and banner for the plugin directory live in `.wordpress-org/` (not included in the installable zip). After approval, upload them to the wordpress.org SVN `assets/` folder (`icon-128x128.png`, `icon-256x256.png`, `banner-772x250.png`).
 
-Le plugin crée l’issue sur `org/nom-logiciel` avec le label `bug` ou `enhancement`.
+## Third-party
 
-## Usage des blocs
-
-### Flux dépôt / README
-- **URL manuelle** : `https://github.com/owner/repo`
-- **ou champ ACF/SCF** : sélection dans la liste des champs détectés
-
-### README — options utiles
-- Branche (`main` par défaut, fallback `master`)
-- Langue par défaut (`en` → `README.en.md`)
-- Nom du premier onglet (à la place de « README »)
-- Masquer l’en-tête (`div[align="center"]`)
-- Sélecteurs CSS additionnels à masquer
-- Largeur (%, px, etc.)
-
-Les chemins d’images relatifs du README sont réécrits vers `raw.githubusercontent.com`.
+- [Parsedown](https://github.com/erusev/parsedown) (MIT) — see `vendor/LICENSE`
 
 ## Structure
 
 ```
 wp-git-tickets.php
-includes/          # Settings, GitHub, CF7, Markdown, Blocs
-blocks/            # block.json des 3 blocs
-assets/            # JS / CSS éditeur & front
+includes/
+blocks/
+assets/
+languages/
 vendor/Parsedown.php
+license.txt
+readme.txt
 ```
-
-## Licence
-
-Usage interne / projet associé — adapter selon vos besoins.

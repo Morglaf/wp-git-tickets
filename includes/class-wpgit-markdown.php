@@ -36,11 +36,10 @@ class WPGIT_Markdown {
 	public static function allowed_html() {
 		$allowed = wp_kses_allowed_html( 'post' );
 
-		$style_align = array(
+		$basic = array(
 			'class' => true,
 			'id'    => true,
 			'align' => true,
-			'style' => true,
 		);
 
 		$extra = array(
@@ -48,15 +47,13 @@ class WPGIT_Markdown {
 				'open'  => true,
 				'class' => true,
 				'id'    => true,
-				'style' => true,
 			),
 			'summary' => array(
 				'class' => true,
 				'id'    => true,
-				'style' => true,
 			),
-			'div'     => $style_align,
-			'span'    => $style_align,
+			'div'     => $basic,
+			'span'    => $basic,
 			'img'     => array(
 				'src'     => true,
 				'alt'     => true,
@@ -66,7 +63,6 @@ class WPGIT_Markdown {
 				'class'   => true,
 				'id'      => true,
 				'align'   => true,
-				'style'   => true,
 				'loading' => true,
 				'srcset'  => true,
 			),
@@ -74,20 +70,18 @@ class WPGIT_Markdown {
 				'class'       => true,
 				'id'          => true,
 				'align'       => true,
-				'style'       => true,
 				'border'      => true,
 				'cellpadding' => true,
 				'cellspacing' => true,
 				'width'       => true,
 			),
-			'thead'   => array( 'class' => true, 'style' => true ),
-			'tbody'   => array( 'class' => true, 'style' => true ),
-			'tfoot'   => array( 'class' => true, 'style' => true ),
-			'tr'      => array( 'class' => true, 'align' => true, 'style' => true ),
+			'thead'   => array( 'class' => true ),
+			'tbody'   => array( 'class' => true ),
+			'tfoot'   => array( 'class' => true ),
+			'tr'      => array( 'class' => true, 'align' => true ),
 			'th'      => array(
 				'class'   => true,
 				'align'   => true,
-				'style'   => true,
 				'colspan' => true,
 				'rowspan' => true,
 				'scope'   => true,
@@ -96,18 +90,17 @@ class WPGIT_Markdown {
 			'td'      => array(
 				'class'   => true,
 				'align'   => true,
-				'style'   => true,
 				'colspan' => true,
 				'rowspan' => true,
 				'width'   => true,
 			),
-			'h1'      => $style_align,
-			'h2'      => $style_align,
-			'h3'      => $style_align,
-			'h4'      => $style_align,
-			'h5'      => $style_align,
-			'h6'      => $style_align,
-			'p'       => $style_align,
+			'h1'      => $basic,
+			'h2'      => $basic,
+			'h3'      => $basic,
+			'h4'      => $basic,
+			'h5'      => $basic,
+			'h6'      => $basic,
+			'p'       => $basic,
 			'a'       => array(
 				'href'   => true,
 				'title'  => true,
@@ -116,26 +109,25 @@ class WPGIT_Markdown {
 				'class'  => true,
 				'id'     => true,
 				'name'   => true,
-				'style'  => true,
 			),
-			'code'    => array( 'class' => true, 'style' => true ),
-			'pre'     => array( 'class' => true, 'style' => true ),
-			'ul'      => array( 'class' => true, 'style' => true ),
-			'ol'      => array( 'class' => true, 'start' => true, 'style' => true ),
-			'li'      => array( 'class' => true, 'style' => true ),
+			'code'    => array( 'class' => true ),
+			'pre'     => array( 'class' => true ),
+			'ul'      => array( 'class' => true ),
+			'ol'      => array( 'class' => true, 'start' => true ),
+			'li'      => array( 'class' => true ),
 			'br'      => array(),
 			'hr'      => array(),
-			'sup'     => array( 'style' => true ),
-			'sub'     => array( 'style' => true ),
+			'sup'     => array(),
+			'sub'     => array(),
 			'kbd'     => array(),
 			'samp'    => array(),
 			'var'     => array(),
 			'mark'    => array(),
 			'abbr'    => array( 'title' => true ),
-			'strong'  => array( 'style' => true ),
-			'em'      => array( 'style' => true ),
-			'b'       => array( 'style' => true ),
-			'i'       => array( 'style' => true ),
+			'strong'  => array(),
+			'em'      => array(),
+			'b'       => array(),
+			'i'       => array(),
 		);
 
 		foreach ( $extra as $tag => $attrs ) {
@@ -539,7 +531,7 @@ class WPGIT_Markdown {
 
 			$html = $parsedown->text( $markdown );
 		} catch ( Throwable $e ) {
-			return '<div class="wpgit-error">' . esc_html( 'Erreur de rendu Markdown.' ) . '</div>';
+			return '<div class="wpgit-error">' . esc_html__( 'Markdown rendering error.', 'wp-git-tickets' ) . '</div>';
 		}
 
 		$html = self::clean_text( $html );

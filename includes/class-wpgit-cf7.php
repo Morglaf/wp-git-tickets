@@ -1,6 +1,8 @@
 <?php
 /**
- * Intégration Contact Form 7 (inchangée fonctionnellement).
+ * Contact Form 7 integration.
+ *
+ * @package WPGIT
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -10,13 +12,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WPGIT_CF7 {
 
 	public static function init() {
-		add_shortcode( 'github_repo_list', array( __CLASS__, 'repo_list_shortcode' ) );
+		add_shortcode( 'wpgit_repo_list', array( __CLASS__, 'repo_list_shortcode' ) );
+		add_shortcode( 'github_repo_list', array( __CLASS__, 'repo_list_shortcode' ) ); // Legacy alias.
+
+		add_action( 'plugins_loaded', array( __CLASS__, 'maybe_hook_cf7' ), 20 );
+	}
+
+	/**
+	 * Register CF7 hooks only when Contact Form 7 is available.
+	 */
+	public static function maybe_hook_cf7() {
+		if ( ! defined( 'WPCF7_VERSION' ) && ! class_exists( 'WPCF7' ) ) {
+			return;
+		}
 		add_filter( 'wpcf7_form_elements', 'do_shortcode' );
 		add_action( 'wpcf7_before_send_mail', array( __CLASS__, 'before_send_mail' ) );
 	}
 
+	/**
+	 * @return string
+	 */
 	public static function repo_list_shortcode() {
-		$blacklist = get_option( 'wpgit_blacklist', array() );
+		$allowed = get_option( 'wpgit_blacklist', array() );
 
 		$all_repos = get_transient( 'wpgit_all_repos_cache' );
 		if ( false === $all_repos ) {
@@ -27,14 +44,14 @@ class WPGIT_CF7 {
 		}
 
 		if ( is_wp_error( $all_repos ) ) {
-			return 'Erreur technique.';
+			return esc_html__( 'Technical error.', 'wp-git-tickets' );
 		}
 
 		$output  = '<select name="nom-logiciel" class="wpcf7-form-control wpcf7-select" required>';
-		$output .= '<option value="">--- Choisir un logiciel ---</option>';
+		$output .= '<option value="">' . esc_html__( '--- Choose a software ---', 'wp-git-tickets' ) . '</option>';
 
 		foreach ( $all_repos as $name ) {
-			if ( in_array( $name, (array) $blacklist, true ) ) {
+			if ( in_array( $name, (array) $allowed, true ) ) {
 				$output .= '<option value="' . esc_attr( $name ) . '">' . esc_html( $name ) . '</option>';
 			}
 		}
@@ -43,7 +60,7 @@ class WPGIT_CF7 {
 	}
 
 	/**
-	 * @param WPCF7_ContactForm $contact_form
+	 * @param mixed $contact_form Contact form instance.
 	 */
 	public static function before_send_mail( $contact_form ) {
 		if ( ! class_exists( 'WPCF7_Submission' ) ) {
@@ -55,61 +72,95 @@ class WPGIT_CF7 {
 			return;
 		}
 
-		$data     = $submission->get_posted_data();
-		$options  = get_option( 'wpgit_settings' );
-		$log_file = ABSPATH . 'debug_git.log';
+		$data    = $submission->get_posted_data();
+		$options = get_option( 'wpgit_settings', array() );
+		$debug   = ! empty( $options['debug_mode'] );
 
 		$get_cf7_val = function ( $field ) use ( $data ) {
 			$val = isset( $data[ $field ] ) ? $data[ $field ] : '';
-			return is_array( $val ) ? ( $val[0] ?? '' ) : $val;
+			$val = is_array( $val ) ? ( $val[0] ?? '' ) : $val;
+			return is_string( $val ) ? $val : '';
 		};
 
-		$type     = $get_cf7_val( 'type-demande' );
-		$logiciel = $get_cf7_val( 'nom-logiciel' );
-		$titre    = $get_cf7_val( 'ticket-title' );
-		$desc     = $get_cf7_val( 'ticket-desc' );
+		$type     = sanitize_text_field( $get_cf7_val( 'type-demande' ) );
+		$logiciel = sanitize_text_field( $get_cf7_val( 'nom-logiciel' ) );
+		$titre    = sanitize_text_field( $get_cf7_val( 'ticket-title' ) );
+		$desc     = sanitize_textarea_field( $get_cf7_val( 'ticket-desc' ) );
+		$name     = sanitize_text_field( $get_cf7_val( 'your-name' ) );
+		if ( $name === '' ) {
+			$name = __( 'Unknown website visitor', 'wp-git-tickets' );
+		}
 
-		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
-		file_put_contents( $log_file, '--- Nouvelle tentative : ' . date( 'Y-m-d H:i:s' ) . " ---\n", FILE_APPEND );
-		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
-		file_put_contents( $log_file, "Type extrait : '$type' | Logiciel : '$logiciel'\n", FILE_APPEND );
+		if ( $debug ) {
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( sprintf( '[WP Git Tickets] Attempt type="%s" repo="%s"', $type, $logiciel ) );
+		}
 
 		$clean_type = trim( strtolower( $type ) );
-		$is_bug     = ( $clean_type === 'un bug' );
-		$is_feature = ( $clean_type === 'une fonction souhaitée' );
+		$is_bug     = ( $clean_type === 'un bug' || $clean_type === 'a bug' || $clean_type === 'bug' );
+		$is_feature = (
+			$clean_type === 'une fonction souhaitée'
+			|| $clean_type === 'une fonction souhaitee'
+			|| $clean_type === 'a feature request'
+			|| $clean_type === 'feature'
+		);
 
-		if ( ( $is_bug || $is_feature ) && ! empty( $logiciel ) ) {
-			$org   = $options['github_org'] ?? '';
-			$token = $options['github_token'] ?? '';
-			$name  = ! empty( $data['your-name'] ) ? $data['your-name'] : 'Inconnu du site web';
-			if ( is_array( $name ) ) {
-				$name = $name[0] ?? 'Inconnu du site web';
+		if ( ! ( $is_bug || $is_feature ) || $logiciel === '' ) {
+			if ( $debug ) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+				error_log( '[WP Git Tickets] Condition not met for issue creation.' );
 			}
+			return;
+		}
 
-			$response = wp_remote_post(
-				"https://api.github.com/repos/$org/$logiciel/issues",
-				array(
-					'headers' => array(
-						'Authorization' => 'token ' . $token,
-						'Accept'        => 'application/vnd.github.v3+json',
-						'User-Agent'    => 'WP-Git-Bot',
-					),
-					'body'    => wp_json_encode(
-						array(
-							'title'  => '[' . $type . '] ' . $titre,
-							'body'   => "Posté par : $name\n\n" . $desc,
-							'labels' => array( $is_bug ? 'bug' : 'enhancement' ),
-						)
-					),
-				)
-			);
+		$allowed = get_option( 'wpgit_blacklist', array() );
+		if ( ! is_array( $allowed ) || ! in_array( $logiciel, $allowed, true ) ) {
+			if ( $debug ) {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+				error_log( '[WP Git Tickets] Repository not in allowed list: ' . $logiciel );
+			}
+			return;
+		}
 
-			$code = wp_remote_retrieve_response_code( $response );
-			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
-			file_put_contents( $log_file, "Réponse GitHub (Code $code)\n", FILE_APPEND );
-		} else {
-			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
-			file_put_contents( $log_file, "Condition non remplie. (Vérifiez l'orthographe de '$type')\n", FILE_APPEND );
+		$org   = sanitize_text_field( $options['github_org'] ?? '' );
+		$token = (string) ( $options['github_token'] ?? '' );
+		if ( $org === '' || $token === '' ) {
+			return;
+		}
+
+		$url = sprintf(
+			'https://api.github.com/repos/%s/%s/issues',
+			rawurlencode( $org ),
+			rawurlencode( $logiciel )
+		);
+
+		$response = wp_remote_post(
+			$url,
+			array(
+				'headers' => array(
+					'Authorization' => 'token ' . $token,
+					'Accept'        => 'application/vnd.github.v3+json',
+					'User-Agent'    => 'WP-Git-Tickets',
+				),
+				'body'    => wp_json_encode(
+					array(
+						'title'  => '[' . $type . '] ' . $titre,
+						'body'   => sprintf(
+							/* translators: %s: submitter name */
+							__( 'Submitted by: %s', 'wp-git-tickets' ),
+							$name
+						) . "\n\n" . $desc,
+						'labels' => array( $is_bug ? 'bug' : 'enhancement' ),
+					)
+				),
+				'timeout' => 20,
+			)
+		);
+
+		if ( $debug ) {
+			$code = is_wp_error( $response ) ? $response->get_error_message() : wp_remote_retrieve_response_code( $response );
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( '[WP Git Tickets] GitHub response: ' . $code );
 		}
 	}
 }

@@ -60,6 +60,12 @@ class WPGIT_Blocks {
 	 * Expose la liste des champs ACF/SCF à l'éditeur.
 	 */
 	public static function localize_editor_data() {
+		wp_set_script_translations(
+			'wpgit-blocks-editor',
+			'wp-git-tickets',
+			WPGIT_PLUGIN_DIR . 'languages'
+		);
+
 		wp_localize_script(
 			'wpgit-blocks-editor',
 			'wpgitBlocks',
@@ -78,7 +84,7 @@ class WPGIT_Blocks {
 	public static function get_acf_field_options() {
 		$options = array(
 			array(
-				'label' => __( '— Choisir un champ —', 'wp-git-tickets' ),
+				'label' => __( '— Select a field —', 'wp-git-tickets' ),
 				'value' => '',
 			),
 		);
@@ -227,7 +233,7 @@ class WPGIT_Blocks {
 	 */
 	private static function render_feed_list( $items, $class = 'wpgit-feed', $show_repo = false ) {
 		if ( empty( $items ) ) {
-			return '<div class="' . esc_attr( $class ) . '"><p class="wpgit-empty">Aucune activité.</p></div>';
+			return '<div class="' . esc_attr( $class ) . '"><p class="wpgit-empty">' . esc_html__( 'No activity.', 'wp-git-tickets' ) . '</p></div>';
 		}
 
 		$html = '<ul class="' . esc_attr( $class ) . '">';
@@ -304,7 +310,7 @@ class WPGIT_Blocks {
 
 			return '<div ' . self::wrapper_attrs( $attrs, 'wpgit-repo-feed' ) . '>' . self::render_feed_list( $items, 'wpgit-feed' ) . '</div>';
 		} catch ( Throwable $e ) {
-			return self::error_html( 'Erreur lors du rendu du flux.' );
+			return self::error_html( __( 'Error while rendering the feed.', 'wp-git-tickets' ) );
 		}
 	}
 
@@ -330,7 +336,7 @@ class WPGIT_Blocks {
 				$org = $settings['org'];
 			}
 			if ( $org === '' ) {
-				return self::error_html( 'Organisation non configurée.' );
+				return self::error_html( __( 'Organization is not configured.', 'wp-git-tickets' ) );
 			}
 
 			$limit = (int) ( $attrs['limit'] ?? 10 );
@@ -346,7 +352,7 @@ class WPGIT_Blocks {
 
 			return '<div ' . self::wrapper_attrs( $attrs, 'wpgit-org-feed' ) . '>' . self::render_feed_list( $items, 'wpgit-feed', true ) . '</div>';
 		} catch ( Throwable $e ) {
-			return self::error_html( 'Erreur lors du rendu du flux organisation.' );
+			return self::error_html( __( 'Error while rendering the organization feed.', 'wp-git-tickets' ) );
 		}
 	}
 
@@ -444,7 +450,7 @@ class WPGIT_Blocks {
 			$html .= '</div>';
 			return WPGIT_Markdown::clean_text( $html );
 		} catch ( Throwable $e ) {
-			return self::error_html( 'Erreur lors du rendu du README.' );
+			return self::error_html( __( 'Error while rendering the README.', 'wp-git-tickets' ) );
 		}
 	}
 }

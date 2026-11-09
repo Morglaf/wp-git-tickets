@@ -35,7 +35,7 @@ class WPGIT_GitHub {
 	public static function parse_repo_url( $url ) {
 		$url = trim( (string) $url );
 		if ( $url === '' ) {
-			return new WP_Error( 'empty_url', 'URL du dépôt manquante.' );
+			return new WP_Error( 'empty_url', __( 'Repository URL is missing.', 'wp-git-tickets' ) );
 		}
 
 		// Accepte owner/repo ou URL complète.
@@ -48,12 +48,12 @@ class WPGIT_GitHub {
 
 		$path = wp_parse_url( $url, PHP_URL_PATH );
 		if ( ! $path ) {
-			return new WP_Error( 'invalid_url', 'URL GitHub invalide.' );
+			return new WP_Error( 'invalid_url', __( 'Invalid GitHub URL.', 'wp-git-tickets' ) );
 		}
 
 		$parts = array_values( array_filter( explode( '/', trim( $path, '/' ) ) ) );
 		if ( count( $parts ) < 2 ) {
-			return new WP_Error( 'invalid_url', 'URL GitHub invalide (owner/repo attendu).' );
+			return new WP_Error( 'invalid_url', __( 'Invalid GitHub URL (owner/repo expected).', 'wp-git-tickets' ) );
 		}
 
 		return array(
@@ -74,7 +74,7 @@ class WPGIT_GitHub {
 		if ( $source === 'acf' ) {
 			$field = trim( (string) ( $attrs['acfField'] ?? '' ) );
 			if ( $field === '' ) {
-				return new WP_Error( 'missing_acf', 'Nom du champ ACF/SCF manquant.' );
+				return new WP_Error( 'missing_acf', __( 'ACF/SCF field name is missing.', 'wp-git-tickets' ) );
 			}
 
 			$value = '';
@@ -89,7 +89,7 @@ class WPGIT_GitHub {
 			$value = trim( (string) $value );
 
 			if ( $value === '' ) {
-				return new WP_Error( 'empty_acf', 'Le champ ACF/SCF est vide.' );
+				return new WP_Error( 'empty_acf', __( 'The ACF/SCF field is empty.', 'wp-git-tickets' ) );
 			}
 
 			return $value;
@@ -97,7 +97,7 @@ class WPGIT_GitHub {
 
 		$url = trim( (string) ( $attrs['repoUrl'] ?? '' ) );
 		if ( $url === '' ) {
-			return new WP_Error( 'missing_url', 'URL du dépôt manquante.' );
+			return new WP_Error( 'missing_url', __( 'Repository URL is missing.', 'wp-git-tickets' ) );
 		}
 
 		return $url;
@@ -120,7 +120,7 @@ class WPGIT_GitHub {
 
 		$headers = array(
 			'Accept'     => 'application/vnd.github.v3+json',
-			'User-Agent' => 'WP-Git-Plugin',
+			'User-Agent' => 'WP-Git-Tickets',
 		);
 		if ( $token ) {
 			$headers['Authorization'] = 'token ' . $token;
@@ -145,13 +145,17 @@ class WPGIT_GitHub {
 		$body = json_decode( wp_remote_retrieve_body( $response ), true );
 
 		if ( $code === 403 ) {
-			return new WP_Error( 'rate_limit', 'Limite de taux GitHub atteinte. Réessayez plus tard.' );
+			return new WP_Error( 'rate_limit', __( 'GitHub rate limit reached. Please try again later.', 'wp-git-tickets' ) );
 		}
 		if ( $code === 404 ) {
-			return new WP_Error( 'not_found', 'Ressource GitHub introuvable.' );
+			return new WP_Error( 'not_found', __( 'GitHub resource not found.', 'wp-git-tickets' ) );
 		}
 		if ( $code < 200 || $code >= 300 ) {
-			$message = is_array( $body ) && ! empty( $body['message'] ) ? $body['message'] : "Erreur GitHub ($code)";
+			$message = is_array( $body ) && ! empty( $body['message'] ) ? $body['message'] : sprintf(
+				/* translators: %d: HTTP status code */
+				__( 'GitHub error (%d)', 'wp-git-tickets' ),
+				(int) $code
+			);
 			return new WP_Error( 'gh_error', $message );
 		}
 
@@ -170,7 +174,7 @@ class WPGIT_GitHub {
 		$token    = $settings['token'];
 
 		if ( ! $token || ! $org ) {
-			return new WP_Error( 'missing_config', 'Configuration incomplète.' );
+			return new WP_Error( 'missing_config', __( 'Incomplete configuration.', 'wp-git-tickets' ) );
 		}
 
 		$cache_key = 'wpgit_all_repos_cache';
@@ -413,7 +417,7 @@ class WPGIT_GitHub {
 			case 'PushEvent':
 				$count = isset( $payload['commits'] ) ? count( $payload['commits'] ) : (int) ( $payload['size'] ?? 0 );
 				$ref   = isset( $payload['ref'] ) ? str_replace( 'refs/heads/', '', $payload['ref'] ) : '';
-				return sprintf( 'Push de %d commit(s) sur %s%s', $count, $repo, $ref ? " ($ref)" : '' );
+				return sprintf( /* translators: 1: commit count, 2: repo, 3: branch */ __( 'Push of %1$d commit(s) to %2$s%3$s', 'wp-git-tickets' ), $count, $repo, $ref ? " ($ref)" : '' );
 			case 'IssuesEvent':
 				$action = $payload['action'] ?? '';
 				$num    = $payload['issue']['number'] ?? '';
@@ -426,15 +430,33 @@ class WPGIT_GitHub {
 				return trim( "PR #$num $action : $pr" );
 			case 'ReleaseEvent':
 				$tag = $payload['release']['tag_name'] ?? '';
-				return "Release $tag sur $repo";
+				return sprintf(
+					/* translators: 1: tag name, 2: repository */
+					__( 'Release %1$s on %2$s', 'wp-git-tickets' ),
+					$tag,
+					$repo
+				);
 			case 'CreateEvent':
 				$ref_type = $payload['ref_type'] ?? 'ref';
 				$ref      = $payload['ref'] ?? '';
-				return "Création $ref_type $ref";
+				return sprintf(
+					/* translators: 1: ref type, 2: ref name */
+					__( 'Created %1$s %2$s', 'wp-git-tickets' ),
+					$ref_type,
+					$ref
+				);
 			case 'WatchEvent':
-				return "Star sur $repo";
+				return sprintf(
+					/* translators: %s: repository */
+					__( 'Starred %s', 'wp-git-tickets' ),
+					$repo
+				);
 			case 'ForkEvent':
-				return "Fork de $repo";
+				return sprintf(
+					/* translators: %s: repository */
+					__( 'Forked %s', 'wp-git-tickets' ),
+					$repo
+				);
 			default:
 				return $type . ( $repo ? " — $repo" : '' );
 		}
@@ -548,7 +570,7 @@ class WPGIT_GitHub {
 		}
 
 		if ( empty( $readme_files ) ) {
-			return new WP_Error( 'no_readme', 'Aucun README.md trouvé à la racine du dépôt.' );
+			return new WP_Error( 'no_readme', __( 'No README.md found at the repository root.', 'wp-git-tickets' ) );
 		}
 
 		// Tri : README.md (sans langue) en premier, puis alphabétique.
@@ -574,7 +596,7 @@ class WPGIT_GitHub {
 			}
 
 			$raw_headers = array(
-				'User-Agent' => 'WP-Git-Plugin',
+				'User-Agent' => 'WP-Git-Tickets',
 				'Accept'     => 'text/plain',
 			);
 			$token = self::get_settings()['token'];
@@ -621,7 +643,7 @@ class WPGIT_GitHub {
 		}
 
 		if ( empty( $result ) ) {
-			return new WP_Error( 'no_readme', 'Impossible de lire le(s) README.' );
+			return new WP_Error( 'no_readme', __( 'Unable to read README file(s).', 'wp-git-tickets' ) );
 		}
 
 		set_transient( $cache_key, $result, self::README_CACHE_TTL );
