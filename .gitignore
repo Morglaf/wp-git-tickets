@@ -1,5 +1,6 @@
-# Local build script
+# Local scripts
 build-zip.ps1
+release.ps1
 
 # Generated archives
 dist/
