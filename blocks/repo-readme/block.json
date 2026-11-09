@@ -1,0 +1,63 @@
+{
+  "apiVersion": 2,
+  "name": "wpgit/repo-readme",
+  "title": "README dépôt GitHub",
+  "category": "widgets",
+  "icon": "media-text",
+  "description": "Affiche le(s) README Markdown d'un dépôt GitHub, avec onglets multilingues.",
+  "keywords": ["github", "readme", "markdown"],
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "attributes": {
+    "sourceType": {
+      "type": "string",
+      "default": "url"
+    },
+    "repoUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "acfField": {
+      "type": "string",
+      "default": ""
+    },
+    "branch": {
+      "type": "string",
+      "default": "main"
+    },
+    "defaultLang": {
+      "type": "string",
+      "default": ""
+    },
+    "showTabs": {
+      "type": "boolean",
+      "default": true
+    },
+    "width": {
+      "type": "string",
+      "default": ""
+    },
+    "hideHeader": {
+      "type": "boolean",
+      "default": false
+    },
+    "hideSelectors": {
+      "type": "string",
+      "default": ""
+    },
+    "defaultTabLabel": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "textdomain": "wp-git-tickets",
+  "editorScript": "wpgit-blocks-editor",
+  "viewScript": "wpgit-blocks-front",
+  "style": "wpgit-blocks"
+}

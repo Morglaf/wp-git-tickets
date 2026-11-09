@@ -1,0 +1,161 @@
+.wpgit-error {
+	padding: 0.75rem 1rem;
+	border-left: 3px solid #b32d2e;
+	background: #fcf0f1;
+	color: #3c434a;
+}
+
+.wpgit-empty {
+	margin: 0;
+	opacity: 0.75;
+	font-style: italic;
+}
+
+.wpgit-feed {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.wpgit-feed__item {
+	padding: 0.85rem 0;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.wpgit-feed__title {
+	font-weight: 600;
+	line-height: 1.4;
+	margin-bottom: 0.35rem;
+}
+
+.wpgit-feed__title a {
+	text-decoration: none;
+}
+
+.wpgit-feed__title a:hover {
+	text-decoration: underline;
+}
+
+.wpgit-feed__meta {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem 1rem;
+	font-size: 0.875em;
+	opacity: 0.8;
+}
+
+.wpgit-feed__repo {
+	font-weight: 600;
+}
+
+/* Conteneurs : même logique de largeur pour flux et README */
+.wpgit-repo-feed,
+.wpgit-org-feed,
+.wpgit-repo-readme {
+	box-sizing: border-box !important;
+	max-width: 100% !important;
+	min-width: 0;
+	overflow-x: auto;
+}
+
+.wpgit-repo-readme {
+	margin: 1rem 0;
+	display: block;
+}
+
+.wpgit-readme-tabs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem;
+	margin-bottom: 1rem;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+	max-width: 100%;
+}
+
+.wpgit-readme-tab {
+	appearance: none;
+	border: 0;
+	background: transparent;
+	padding: 0.55rem 0.9rem;
+	cursor: pointer;
+	font: inherit;
+	border-bottom: 2px solid transparent;
+	margin-bottom: -1px;
+	opacity: 0.7;
+}
+
+.wpgit-readme-tab.is-active,
+.wpgit-readme-tab[aria-selected="true"] {
+	opacity: 1;
+	border-bottom-color: currentColor;
+	font-weight: 600;
+}
+
+.wpgit-readme-panel {
+	max-width: 100%;
+	min-width: 0;
+}
+
+.wpgit-readme-content {
+	line-height: 1.6;
+	overflow-wrap: anywhere;
+	word-break: break-word;
+	max-width: 100%;
+	min-width: 0;
+	overflow-x: auto;
+	box-sizing: border-box;
+}
+
+.wpgit-readme-content * {
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+.wpgit-readme-content pre {
+	overflow-x: auto;
+	max-width: 100%;
+	padding: 0.75rem 1rem;
+	background: rgba(0, 0, 0, 0.04);
+	border-radius: 4px;
+}
+
+.wpgit-readme-content code {
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-size: 0.9em;
+	/* code inline ne doit pas forcer 100% */
+	max-width: 100%;
+}
+
+.wpgit-readme-content img {
+	display: block;
+	max-width: 100% !important;
+	width: auto !important;
+	height: auto !important;
+}
+
+.wpgit-readme-content table {
+	max-width: 100% !important;
+	width: 100% !important;
+	border-collapse: collapse;
+	margin: 1rem 0;
+	table-layout: fixed;
+}
+
+.wpgit-readme-content th,
+.wpgit-readme-content td {
+	border: 1px solid rgba(0, 0, 0, 0.12);
+	padding: 0.4rem 0.6rem;
+	text-align: left;
+	word-break: break-word;
+	overflow-wrap: anywhere;
+	vertical-align: top;
+}
+
+.wpgit-block-editor .components-placeholder {
+	min-height: 120px;
+}
+
+.wpgit-block-editor .components-notice {
+	margin: 0;
+}

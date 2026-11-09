@@ -1,0 +1,46 @@
+{
+  "apiVersion": 2,
+  "name": "wpgit/repo-feed",
+  "title": "Flux dépôt GitHub",
+  "category": "widgets",
+  "icon": "update",
+  "description": "Affiche le flux de commits ou d'activité d'un dépôt GitHub.",
+  "keywords": ["github", "commits", "feed", "depot"],
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"],
+    "spacing": {
+      "margin": true,
+      "padding": true
+    }
+  },
+  "attributes": {
+    "sourceType": {
+      "type": "string",
+      "default": "url"
+    },
+    "repoUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "acfField": {
+      "type": "string",
+      "default": ""
+    },
+    "feedType": {
+      "type": "string",
+      "default": "commits"
+    },
+    "limit": {
+      "type": "number",
+      "default": 10
+    },
+    "width": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "textdomain": "wp-git-tickets",
+  "editorScript": "wpgit-blocks-editor",
+  "style": "wpgit-blocks"
+}

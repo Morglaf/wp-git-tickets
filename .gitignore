@@ -1,0 +1,6 @@
+# Script de build local
+build-zip.ps1
+
+# Archives générées
+dist/
+*.zip
